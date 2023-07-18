@@ -1,6 +1,11 @@
 /** @type {import('tailwindcss').Config} */
+import FlowbitePlugin from "flowbite/plugin";
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/flowbite/**/*.js",
+  ],
   theme: {
     fontFamily: {
       greatVibes: ["Great Vibes"],
@@ -10,5 +15,5 @@ export default {
 
     extend: {},
   },
-  plugins: [],
+  plugins: [FlowbitePlugin],
 };

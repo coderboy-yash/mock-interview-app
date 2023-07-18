@@ -1,11 +1,11 @@
-// import React from '/react'
+// import React from 'react'
 
-const Login = () => {
+const Signup = () => {
   return (
-    <div className="h-screen flex justify-center ">
+    <div className=" flex justify-center h-screen ">
       <div className="shadow-md shadow-slate-400 w-1/2 flex flex-col mt-16  items-center ">
         <span className="w-full h-16 items-center text-2xl flex justify-center text-white bg-gray-900">
-          Login here
+          Sign up here
         </span>
         <form action="">
           <input type="text" />
@@ -15,4 +15,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;

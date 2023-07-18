@@ -1,11 +1,10 @@
 // import React from 'react'
 import bgVideo from "../assets/v3.mp4";
 import logo2 from "../assets/logo2.png";
-import Navbar from "./Navbar";
+
 const Hero = () => {
   return (
-    <div>
-      <Navbar></Navbar>
+    <div className="">
       <div className="flex flex-row justify-end mt-20 h-screen">
         <div className="basis-1/2 flex  align-top flex-col  ">
           <img src={logo2} className="w-48" alt="" />
