@@ -11,7 +11,7 @@ const Hero = () => {
           <div className="text-6xl text-gray-900 mt-16 font-bold p-6 font-castro    ">
             Clear your all future interviews with confidence
           </div>
-          <p className="ml-6 text-xl border-b-2 border-gray-900">
+          <p className="ml-6 mt-16 text-xl border-b-2 border-gray-900">
             Practice and learn from experienced professionals in your field
           </p>
           <div className="ml-6 flex gap-4 mt-6 ">
