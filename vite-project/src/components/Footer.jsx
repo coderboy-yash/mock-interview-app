@@ -3,7 +3,7 @@
 const Footer = () => {
   return (
     <div>
-      <div className="h-40 bg-gray-900 text-white absolute -bottom-0 w-screen  ">
+      <div className="h-40 bg-gray-900 text-white  w-screen  ">
         <div className="flex gap-8 justify-center p-6">
           <div>Home</div>
           <div>Contact us</div>

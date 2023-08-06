@@ -6,8 +6,8 @@ const Description = () => {
   return (
     <div className="p-8 m-4 mb-8 flex flex-col gap-60 ">
       <div className="flex justify-center gap-16 ">
-        <div className="basis-1/3 relative shadow-lg h-80  shadow-slate-400">
-          <div className="absolute -top-6 -left-5">
+        <div className="basis-1/3 relative shadow-lg  shadow-slate-500 ">
+          <div className="p-4">
             <img src={interview} alt="" />
           </div>
         </div>
@@ -22,7 +22,6 @@ const Description = () => {
         </div>
       </div>
       <div className="flex justify-center gap-16  ">
-
         <div className="m-6 w-1/3">
           <p className="text-4xl font-bold text-gray-800 mb-8 border-b-2 border-gray-500">
             Learn to handle pressure at interview
@@ -32,15 +31,15 @@ const Description = () => {
             interviews you can easily tackle with our platform.
           </p>
         </div>
-                <div className="basis-1/3 relative shadow-lg h-80  shadow-slate-400">
-          <div className="absolute -top-6 -left-5">
+        <div className="basis-1/3 relative shadow-lg   shadow-slate-400">
+          <div className="p-4">
             <img src={pressure} alt="" />
           </div>
         </div>
       </div>
       <div className="flex justify-center gap-16 ">
-        <div className="basis-1/3 relative shadow-lg h-64  shadow-slate-400">
-          <div className="absolute -top-6 w-96  -left-5">
+        <div className="basis-1/3 relative shadow-lg   shadow-slate-400">
+          <div className="p-4 ">
             <img src={companies} alt="" />
           </div>
         </div>

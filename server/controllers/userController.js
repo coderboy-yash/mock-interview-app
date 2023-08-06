@@ -1,5 +1,6 @@
 import User from "../models/User.js";
 import Schedule from "../models/Schedule.js";
+import bcrypt from 'bcryptjs';
 
 export const register = async (req, res, next) => {
   try {
@@ -16,7 +17,7 @@ export const register = async (req, res, next) => {
     console.log(2);
     res.status(200).send("user has been created successfully");
   } catch (err) {
-    res.status(500).send("unable to register", err);
+    res.status(500).send(err);
     console.log(err);
   }
 };

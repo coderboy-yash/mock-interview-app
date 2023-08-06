@@ -6,6 +6,7 @@ import schedule from "../assets/schedule.jpg";
 import scheduleLogo from "../assets/sheduleLogo.png";
 import Modal from "../components/Modal";
 import Table from "../components/Table";
+import Footer from "../components/Footer";
 
 const Interviewee = () => {
   // const navigate = useNavigate();
@@ -69,6 +70,7 @@ const Interviewee = () => {
       <div className="m-40 mt-10 border-2 border-green-500">
         <Table role="interviewee"></Table>
       </div>
+      <Footer></Footer>
       <Modal
         isVisible={showModal}
         role={"interviewee"}

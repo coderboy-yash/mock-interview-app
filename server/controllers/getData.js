@@ -4,7 +4,7 @@ export const getData = async (req, res, next) => {
     const role = req.query.role;
     const uid = req.query.uid;
     console.log(role, uid)
-    // await Schedule.deleteMany({});
+
     const data = await Schedule.find({
         uid: uid,
         role: role,
