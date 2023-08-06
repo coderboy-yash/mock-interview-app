@@ -1,13 +1,14 @@
 // import * as React from 'react';
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
-
+import { useParams } from "react-router-dom";
+import MyContext from "./../context";
 export function getUrlParams(url = window.location.href) {
   let urlStr = url.split("?")[1];
   return new URLSearchParams(urlStr);
 }
 
 export default function Room() {
-  const roomID = Math.floor(Math.random() * 100 + 100000).toString();
+  const { roomId } = useParams(); // const roomID = Math.floor(Math.random() * 100000 + 100000).toString();
   let myMeeting = async (element) => {
     // generate Kit Token
     const appID = 722241375;
@@ -15,7 +16,7 @@ export default function Room() {
     const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
       appID,
       serverSecret,
-      roomID,
+      roomId,
       Date.now().toString(),
       "yash"
     );
@@ -25,20 +26,20 @@ export default function Room() {
     // start the call
     zp.joinRoom({
       container: element,
-      sharedLinks: [
-        {
-          name: "Personal link",
-          url:
-            window.location.protocol +
-            "//" +
-            window.location.host +
-            window.location.pathname +
-            "?roomID=" +
-            roomID,
-        },
-      ],
+      // sharedLinks: [
+      //   {
+      //     name: "Personal link",
+      //     url: contextData.url,
+      //     // window.location.protocol +
+      //     // "//" +
+      //     // window.location.host +
+      //     // window.location.pathname +
+      //     // "?roomID=" +
+      //     // roomID,
+      //   },
+      // ],
       scenario: {
-        mode: ZegoUIKitPrebuilt.GroupCall, // To implement 1-on-1 calls, modify the parameter here to [ZegoUIKitPrebuilt.OneONoneCall].
+        mode: ZegoUIKitPrebuilt.OneONoneCall, // To implement 1-on-1 calls, modify the parameter here to [ZegoUIKitPrebuilt.OneONoneCall].
       },
     });
   };

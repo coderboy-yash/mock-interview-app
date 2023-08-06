@@ -30,7 +30,9 @@ const scheduleSchema = new mongoose.Schema({
 
     }, interviewer: {
         type: "string",
-    }, token: {
+    }, uid: {
+        type: "string",
+    }, roomId: {
         type: "string",
     }
 

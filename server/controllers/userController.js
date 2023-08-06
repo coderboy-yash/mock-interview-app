@@ -31,6 +31,7 @@ export const register = async (req, res, next) => {
 //   // res.send("hello from server");
 // };
 export const schedule = async (req, res, next) => {
+  const roomId = Math.floor(Math.random() * 100000 + 100000);
   const form = req.body.formData;
   form.status = "unmatched";
 
@@ -74,11 +75,12 @@ export const schedule = async (req, res, next) => {
         form.interviewee = matchedSchedule.email;
         form.matchedTime = matchedTime[0];
         form.status = "matched";
+        form.roomId = roomId;
         const updated = await Schedule.findOneAndUpdate({
           selectedDate: form.selectedDate,
           interviewType: form.interviewType,
-          role: "interviewer",
-        }, { status: "matched", matchedTime: matchedTime[0], interviewer: form.email });
+          role: "interviewee",
+        }, { status: "matched", matchedTime: matchedTime[0], interviewer: form.email, roomId: roomId });
       }
 
     }
@@ -96,21 +98,25 @@ export const schedule = async (req, res, next) => {
       );
       console.log("matchedTime", matchedTime[0]);
       if (matchedTime.length > 0) {
+
         form.interviewer = matchedSchedule.email;
         form.matchedTime = matchedTime[0];
         form.status = "matched";
+        form.roomId = roomId;
         const updated = await Schedule.findOneAndUpdate({
           selectedDate: form.selectedDate,
           interviewType: form.interviewType,
           role: "interviewer",
-        }, { status: "matched", matchedTime: matchedTime[0], interviewee: form.email });
+        }, { status: "matched", matchedTime: matchedTime[0], interviewee: form.email, roomId: roomId });
       }
 
     }
   }
 
   const newSchedule = new Schedule(form);
+
   await newSchedule.save();
+
   if (form.role == "interviewer") {
     console.log("interviewer", form);
   }

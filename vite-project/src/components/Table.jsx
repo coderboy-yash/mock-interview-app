@@ -4,32 +4,32 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 import MyContext from "./../context";
+import { useNavigate } from "react-router-dom";
+// import { Link } from "react-router-dom";
 const Table = ({ role }) => {
   const contextData = useContext(MyContext);
   const [data, setData] = useState([]);
+  const navigate = useNavigate();
+  const handleJoinRoom = (roomId) => {
+    console.log(roomId);
+    navigate(`/room/${roomId}`);
+  };
 
   useEffect(() => {
     axios
       .get(`${import.meta.env.VITE_REACT_APP_BASE_URL}/user/getdata`, {
-        params: { role: role, token: contextData.token },
+        params: { role: role, uid: contextData.uid },
       })
 
       .then((response) => {
         console.log(response.data);
-        // setData(response.data); // Assuming the response data is an array of objects similar to your initial data
+        setData(response.data);
+        // Assuming the response data is an array of objects similar to your initial data
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
   }, []);
-  //  const contextData = useContext(MyContext);
-  // const data = [
-  //   { id: "19 - 7 - 2023", name: "Frontend", status: "not matched" },
-  //   { id: "19 - 7 - 2023", name: "Frontend", status: "not matched" },
-  //   { id: "19 - 7 - 2023", name: "Frontend", status: "not matched" },
-  //   { id: "19 - 7 - 2023", name: "Frontend", status: "not matched" },
-  //   { id: "19 - 7 - 2023", name: "Frontend", status: "not matched" },
-  // ];
 
   return (
     <div>
@@ -37,13 +37,23 @@ const Table = ({ role }) => {
         <thead className="text-2xl text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             <th scope="col" className="px-6 py-3">
-              requested on
+              Date
             </th>
             <th scope="col" className="px-6 py-3">
-              Topic
+              Time matched
             </th>
+            <th scope="col" className="px-6 py-3">
+              Interview Type
+            </th>
+            <th scope="col" className="px-6 py-3">
+              Rating
+            </th>
+
             <th scope="col" className="px-6 py-3">
               Status
+            </th>
+            <th scope="col" className="px-6 py-3">
+              Join
             </th>
           </tr>
         </thead>
@@ -57,10 +67,21 @@ const Table = ({ role }) => {
                 scope="row"
                 className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
               >
-                {item.id}
+                {item.selectedDate}
               </th>
-              <td className="px-6 py-4">{item.name}</td>
+              <td className="px-6 py-4">{item.matchedTime}</td>
+              <td className="px-6 py-4">{item.interviewType}</td>
+              <td className="px-6 py-4">{item.rating}</td>
               <td className="px-6 py-4">{item.status}</td>
+              <td className="px-6 py-4">
+                {item.roomId == "not available" ? (
+                  <div>Waiting </div>
+                ) : (
+                  <button onClick={() => handleJoinRoom(item.roomId)}>
+                    join
+                  </button>
+                )}
+              </td>
             </tr>
           ))}
         </tbody>

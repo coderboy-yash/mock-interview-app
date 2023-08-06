@@ -37,7 +37,7 @@ const Modal = ({ isVisible, onClose, role }) => {
     // Handle form submission logic here, e.g., send data to server
     const formData = {
       email: contextData.email,
-      token: contextData.token,
+      uid: contextData.uid,
       interviewType,
       rating,
       selectedDate,

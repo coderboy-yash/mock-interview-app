@@ -16,17 +16,18 @@ import MyContext from "./context";
 
 function App() {
   const [authUser, setAuthUser] = useState(null);
+  // const roomId = "123";
+  // const [roomId, setRoomId] = useState(null);
+  // http://localhost:5173/interviewer/room/?roomID=102536
+  // const [url, setUrl] = useState(
+  //   window.location.protocol + "//" + window.location.host + "/room/" + roomId
+  // );
+
   // const [username, setUsername] = useState(null);
   useEffect(() => {
     const listen = onAuthStateChanged(auth, (user) => {
       if (user) {
         console.log("user exist", user);
-        //    axios.get(`${import.meta.env.VITE_REACT_APP_BASE_URL}/user/getuser`, { params: { email: user.email } }).then((res) => {
-        //       console.log(res);
-        //       setUsername(res.data);
-        //       // setAuthUser(res)
-
-        // })
 
         setAuthUser(user);
       } else console.log("user not found");
@@ -39,7 +40,7 @@ function App() {
     <MyContext.Provider
       value={{
         email: authUser ? authUser.email : "",
-        token: authUser ? authUser.accessToken : "",
+        uid: authUser ? authUser.uid : "",
       }}
     >
       <div className="relative overflow-hidden">
@@ -57,7 +58,7 @@ function App() {
               path="/interviewer"
               element={authUser ? <Interviewer></Interviewer> : <Login></Login>}
             ></Route>
-            <Route path="/room" element={<Room></Room>}></Route>
+            <Route path="/room/:roomId" element={<Room></Room>}></Route>
           </Routes>
           {/* <Footer></Footer> */}
         </BrowserRouter>
