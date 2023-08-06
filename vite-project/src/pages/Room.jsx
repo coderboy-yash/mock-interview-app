@@ -11,8 +11,8 @@ export default function Room() {
   const { roomId } = useParams(); // const roomID = Math.floor(Math.random() * 100000 + 100000).toString();
   let myMeeting = async (element) => {
     // generate Kit Token
-    const appID = 722241375;
-    const serverSecret = "f11e881309bf331fdb03d9ee1d696e43";
+    const appID = 1545157414;
+    const serverSecret = "9cbbccd74a3fedb2c79d4c259da008c3";
     const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
       appID,
       serverSecret,
