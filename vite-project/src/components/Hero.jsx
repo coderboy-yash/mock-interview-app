@@ -1,6 +1,7 @@
 // import React from 'react'
 import bgVideo from "../assets/v3.mp4";
 import logo2 from "../assets/logo2.png";
+import { NavLink } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -15,12 +16,12 @@ const Hero = () => {
             Practice and learn from experienced professionals in your field
           </p>
           <div className="ml-6 flex gap-4 mt-6 ">
-            <button className="bg-gray-900 text-white rounded-lg p-4">
+            <NavLink to="/interviewee" className="bg-gray-900 text-white rounded-lg p-4">
               Get a free mock interview
-            </button>
-            <button className="bg-gray-900 text-white rounded-lg p-4">
+            </NavLink>
+            <NavLink to="/interviewer" className="bg-gray-900 text-white rounded-lg p-4">
               take interview
-            </button>
+            </NavLink>
           </div>
         </div>
         <div className="basis-1/2 ">

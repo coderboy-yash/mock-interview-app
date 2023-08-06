@@ -1,29 +1,64 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import MyContext from "./../context";
+import Axios from "axios";
 
-const Modal = ({ isVisible, onClose }) => {
-  const [interviewType, setInterviewType] = useState("");
-  const [rating, setRating] = useState("");
+const Modal = ({ isVisible, onClose, role }) => {
+  const contextData = useContext(MyContext);
+  const [interviewType, setInterviewType] = useState("Programming DS/Alog");
+  const [rating, setRating] = useState("Beginner");
+  const [selectedDate, setSelectedDate] = useState("");
   // const [profession, setProfession] = useState("");
 
   //
-  const [selectedValues, setSelectedValues] = useState([]);
+  const [selectedTime, setSelectedTime] = useState([]);
+  const handleDateChange = (event) => {
+    setSelectedDate(event.target.value);
+  };
 
   const handleCheckboxChange = (event) => {
     const value = event.target.value;
     const isChecked = event.target.checked;
+    console.log(isChecked, value);
 
     if (isChecked) {
-      setSelectedValues([...selectedValues, value]);
+      setSelectedTime([...selectedTime, value]);
+      console.log(selectedTime);
     } else {
-      setSelectedValues(selectedValues.filter((item) => item !== value));
+      setSelectedTime(selectedTime.filter((item) => item !== value));
+      console.log(selectedTime);
     }
   };
 
   //
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // console.log(selectedType);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    onClose();
+    // Handle form submission logic here, e.g., send data to server
+    const formData = {
+      email: contextData.email,
+      token: contextData.token,
+      interviewType,
+      rating,
+      selectedDate,
+      selectedTime,
+      role,
+    };
+    console.log(formData);
+    Axios.post(`${import.meta.env.VITE_REACT_APP_BASE_URL}/user/schedule`, {
+      formData,
+    })
+      .then((res) => {
+        console.log(res);
+        if (res.status == 200) {
+          console.log("interview scheduled successfully");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    // Assuming you want to close the form after submission
   };
   if (!isVisible) return null;
   return (
@@ -39,6 +74,7 @@ const Modal = ({ isVisible, onClose }) => {
         <div className="bg-white p-2 rounded  overflow-auto">
           <h1 className="flex justify-center text-3xl">schedule interview</h1>{" "}
           <form
+            method="POST"
             onSubmit={(e) => handleSubmit(e)}
             className="flex flex-col justify-center  bg-white gap-10 m-8  rounded-lg "
           >
@@ -82,7 +118,12 @@ const Modal = ({ isVisible, onClose }) => {
               </label>
               <label className="text-2xl">
                 select date
-                <input type="date" />
+                <input
+                  type="date"
+                  value={selectedDate}
+                  onChange={handleDateChange}
+                  required
+                />
               </label>
             </div>
             <span className="text-2xl">Select atleast one time</span>
@@ -90,8 +131,8 @@ const Modal = ({ isVisible, onClose }) => {
               <div>
                 <input
                   type="checkbox"
-                  value="option1"
-                  checked={selectedValues.includes("option1")}
+                  value="12:00 pm-1:00 pm"
+                  checked={selectedTime.includes("12:00 pm-1:00 pm")}
                   onChange={handleCheckboxChange}
                 />
                 <span className=""> 12:00 pm-1:00 pm</span>
@@ -99,8 +140,8 @@ const Modal = ({ isVisible, onClose }) => {
               <div>
                 <input
                   type="checkbox"
-                  value="option2"
-                  checked={selectedValues.includes("option2")}
+                  value="1:00 pm-2:00 pm"
+                  checked={selectedTime.includes("1:00 pm-2:00 pm")}
                   onChange={handleCheckboxChange}
                 />
                 <span> 1:00 pm-2:00 pm</span>
@@ -108,8 +149,8 @@ const Modal = ({ isVisible, onClose }) => {
               <div>
                 <input
                   type="checkbox"
-                  value="option3"
-                  checked={selectedValues.includes("option3")}
+                  value="2:00 pm -3:00 pm"
+                  checked={selectedTime.includes("2:00 pm -3:00 pm")}
                   onChange={handleCheckboxChange}
                 />
                 <span> 2:00 pm -3:00 pm</span>
@@ -117,8 +158,8 @@ const Modal = ({ isVisible, onClose }) => {
               <div>
                 <input
                   type="checkbox"
-                  value="option4"
-                  checked={selectedValues.includes("option4")}
+                  value="3:00 pm-4:00 pm"
+                  checked={selectedTime.includes("3:00 pm-4:00 pm")}
                   onChange={handleCheckboxChange}
                 />
                 <span> 3:00 pm-4:00 pm</span>
@@ -126,8 +167,8 @@ const Modal = ({ isVisible, onClose }) => {
               <div>
                 <input
                   type="checkbox"
-                  value="option5"
-                  checked={selectedValues.includes("option5")}
+                  value="4:00 pm-5:00 pm"
+                  checked={selectedTime.includes("4:00 pm-5:00 pm")}
                   onChange={handleCheckboxChange}
                 />
                 <span> 4:00 pm-5:00 pm</span>
@@ -135,8 +176,8 @@ const Modal = ({ isVisible, onClose }) => {
               <div>
                 <input
                   type="checkbox"
-                  value="option6"
-                  checked={selectedValues.includes("option6")}
+                  value="5:00 pm-6:00 pm"
+                  checked={selectedTime.includes("5:00 pm-6:00 pm")}
                   onChange={handleCheckboxChange}
                 />
                 <span> 5:00 pm-6:00 pm</span>
@@ -144,8 +185,8 @@ const Modal = ({ isVisible, onClose }) => {
               <div>
                 <input
                   type="checkbox"
-                  value="option7"
-                  checked={selectedValues.includes("option7")}
+                  value="6:00 pm-7:00 pm"
+                  checked={selectedTime.includes("6:00 pm-7:00 pm")}
                   onChange={handleCheckboxChange}
                 />
                 <span> 6:00 pm-7:00 pm</span>
@@ -153,8 +194,8 @@ const Modal = ({ isVisible, onClose }) => {
               <div>
                 <input
                   type="checkbox"
-                  value="option8"
-                  checked={selectedValues.includes("option8")}
+                  value="7:00 pm-8:00 pm"
+                  checked={selectedTime.includes("7:00 pm-8:00 pm")}
                   onChange={handleCheckboxChange}
                 />
                 <span> 7:00 pm-8:00 pm</span>
@@ -162,8 +203,8 @@ const Modal = ({ isVisible, onClose }) => {
               <div>
                 <input
                   type="checkbox"
-                  value="option9"
-                  checked={selectedValues.includes("option9")}
+                  value="8:00 pm-9:00 pm"
+                  checked={selectedTime.includes("8:00 pm-9:00 pm")}
                   onChange={handleCheckboxChange}
                 />
                 <span> 8:00 pm-9:00 pm</span>
@@ -171,8 +212,8 @@ const Modal = ({ isVisible, onClose }) => {
               <div>
                 <input
                   type="checkbox"
-                  value="option10"
-                  checked={selectedValues.includes("option10")}
+                  value="9:00 pm-10:00 pm"
+                  checked={selectedTime.includes("9:00 pm-10:00 pm")}
                   onChange={handleCheckboxChange}
                 />
                 <span> 9:00 pm-10:00 pm</span>
@@ -181,7 +222,7 @@ const Modal = ({ isVisible, onClose }) => {
             <button
               className="p-2 outline-orange-300 border-orange-900 border-2 w-60 bg-amber-900 text-white hover:bg-amber-600 active:bg-amber-800"
               type="submit"
-              onClick={() => onClose()}
+              // onClick={() => onClose()}
             >
               submit
             </button>

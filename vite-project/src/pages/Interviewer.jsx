@@ -1,4 +1,5 @@
 // import React from 'react'
+
 import { Fragment, useState } from "react";
 import schedule from "../assets/schedule2.jpg";
 import scheduleLogo from "../assets/sheduleLogo.png";
@@ -37,9 +38,13 @@ const Interviewee = () => {
       </div>
 
       <div className="m-40 mt-10 border-2 border-green-500">
-        <Table></Table>
+        <Table role={"interviewer"}></Table>
       </div>
-      <Modal isVisible={showModal} onClose={() => setShowModal(false)}></Modal>
+      <Modal
+        isVisible={showModal}
+        role={"interviewer"}
+        onClose={() => setShowModal(false)}
+      ></Modal>
     </Fragment>
   );
 };

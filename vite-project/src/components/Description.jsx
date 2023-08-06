@@ -22,6 +22,7 @@ const Description = () => {
         </div>
       </div>
       <div className="flex justify-center gap-16  ">
+
         <div className="m-6 w-1/3">
           <p className="text-4xl font-bold text-gray-800 mb-8 border-b-2 border-gray-500">
             Learn to handle pressure at interview
@@ -31,7 +32,7 @@ const Description = () => {
             interviews you can easily tackle with our platform.
           </p>
         </div>
-        <div className="basis-1/3 relative shadow-lg h-80  shadow-slate-400">
+                <div className="basis-1/3 relative shadow-lg h-80  shadow-slate-400">
           <div className="absolute -top-6 -left-5">
             <img src={pressure} alt="" />
           </div>

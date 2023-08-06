@@ -3,6 +3,7 @@
 import Hero from "./../components/Hero";
 import Illustration from "./../components/Illustration";
 import Description from "./../components/Description";
+import Footer from '../components/Footer'
 
 const Home = () => {
   return (
@@ -10,7 +11,7 @@ const Home = () => {
       <Hero></Hero>
       <Illustration></Illustration>
       <Description></Description>
-      {/* <Footer></Footer> */}
+      <Footer></Footer>
     </div>
   );
 };

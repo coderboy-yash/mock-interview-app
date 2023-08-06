@@ -1,47 +1,81 @@
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import sign from "../assets/signup.png";
-// import Axios from "axios";
+import Axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../utils/firebase-config";
+
 const Signup = () => {
   const navigate = useNavigate();
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+  let name, value;
+  const handleInput = (e) => {
+    name = e.target.name;
+    // console.log("e", e.target.name);
+    value = e.target.value;
+    setUser({ ...user, [name]: value });
+    // console.log(user);
+  };
+  //
+
+  //**************************************** */
   const login = (e) => {
     e.preventDefault();
     navigate("/login");
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log(import.meta.env.VITE_REACT_APP_BASE_URL);
-    if (name == "" && email == "" && password == "") {
-      toast.error("please enter info then submit");
+    if (user.name == "" || user.email == "" || user.password == "") {
+     return toast.error("please enter info then submit");
       // return;
     }
-    if (name === "") toast.error("name cannot be empty! ");
-    if (password.length < 4) {
-      if (password == "") toast.error("password cannot be empty");
-      else toast.error("password should contain atleast 4 characters");
+  
+    if (user.password.length < 6) {
+   
+     return toast.error("password should contain atleast 6 characters");
     }
-    if (email === "") toast.error("email cannot be empty! ");
-    else toast.success("registered successfully");
-    // Axios.post(`${import.meta.env.VITE_REACT_APP_BASE_URL}/api/auth/register`, {
-    //   username: name,
-    //   email,
-    //   password,
-    // })
-    //   .then((response) => {
-    //     console.log(response.status);
-    //     if (response.status == 200) {
-    //       navigate("/login");
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.log(error.response.status);
-    //     if (error.response.status == 500)
-    //       toast.error("user already present better with the login button");
-    //   });
+    
+   
+    // ***********
+    createUserWithEmailAndPassword(auth, user.email, user.password, user.name)
+      .then((userCredentials) => {
+        console.log(userCredentials);
+        if (userCredentials) {
+          
+          toast.success("user created successfully")
+          navigate('/')
+        }
+        else toast.error("unable to register")
+      })
+      .catch((error) => {
+        toast.error("user already present")
+        console.log(error);
+      });
+    Axios.post(`${import.meta.env.VITE_REACT_APP_BASE_URL}/user/register`, {
+      username: user.name,
+      email: user.email,
+      password: user.password,
+    })
+      .then((response) => {
+        console.log(response.status);
+        if (response.status == 200) {
+          navigate("/");
+        }
+        if (response.status == 403) {
+          console.log(response);
+        }
+      })
+      .catch((error) => {
+        console.log(error.response.status);
+        if (error.response.status == 500)
+          toast.error("user already present better with the login button");
+      });
   };
   return (
     <div className=" h-screen p-20 bg-gradient-to-r from-violet-100 to-purple-300 ">
@@ -51,6 +85,7 @@ const Signup = () => {
           <img className="h-full" src={sign} alt="" />
         </div>
         <form
+          method="POST"
           onSubmit={(e) => handleSubmit(e)}
           className="flex flex-col basis-1/2 justify-center items-center gap-8   m-10"
         >
@@ -58,23 +93,26 @@ const Signup = () => {
           <input
             className="p-4 border-2 border-purple-500 outline-purple-700 text-xl"
             type="name"
+            name="name"
             placeholder="name"
-            onChange={(e) => setName(e.target.value)}
-            value={name}
+            onChange={(e) => handleInput(e)}
+            value={user.name}
           />
           <input
             className="p-4 border-2 border-purple-500 outline-purple-700 text-xl"
             type="email"
+            name="email"
             placeholder="email"
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
+            value={user.email}
+            onChange={handleInput}
           />
           <input
             className="p-4 border-2 border-purple-500 outline-purple-700 text-xl"
             type="password"
+            name="password"
             placeholder="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={user.password}
+            onChange={handleInput}
           />
           <button
             className="bg-purple-700 p-4 text-white w-1/2 text-3xl"

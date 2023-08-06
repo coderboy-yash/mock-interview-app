@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@zegocloud/zego-uikit-prebuilt": "^1.8.7",
+    "axios": "^1.4.0",
+    "firebase": "^10.1.0",
     "flowbite": "^1.7.0",
     "flowbite-react": "^0.4.11",
     "react": "^18.2.0",

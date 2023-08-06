@@ -1,11 +1,41 @@
 // import React from 'react'
 import { Fragment, useState } from "react";
+// import { useNavigate } from "react-router-dom";
+// import axios from "axios";
 import schedule from "../assets/schedule.jpg";
 import scheduleLogo from "../assets/sheduleLogo.png";
 import Modal from "../components/Modal";
 import Table from "../components/Table";
 
 const Interviewee = () => {
+  // const navigate = useNavigate();
+  // const callPage = async () => {
+  //   try {
+  //     const res = await axios.get(
+  //       `${import.meta.env.VITE_REACT_APP_BASE_URL}/user/giveInterview`,
+  //       {
+  //         headers: {
+  //           Accept: "application/json",
+  //           "Content-Type": "application/json",
+  //         },
+  //         withCredentials: true,
+  //       }
+  //     );
+  //     const data = await res.json();
+  //     console.log(data);
+  //     if (!res.status === 200) {
+  //       console.log(res.error);
+  //     } else {
+  //       navigate("/login");
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+  // useEffect(() => {
+  //   callPage();
+  // }, []);
+
   const [showModal, setShowModal] = useState(false);
 
   // /////////////////////////////////////
@@ -37,9 +67,13 @@ const Interviewee = () => {
       </div>
 
       <div className="m-40 mt-10 border-2 border-green-500">
-        <Table></Table>
+        <Table role="interviewee"></Table>
       </div>
-      <Modal isVisible={showModal} onClose={() => setShowModal(false)}></Modal>
+      <Modal
+        isVisible={showModal}
+        role={"interviewee"}
+        onClose={() => setShowModal(false)}
+      ></Modal>
     </Fragment>
   );
 };
